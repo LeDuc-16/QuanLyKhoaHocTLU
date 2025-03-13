@@ -13,10 +13,11 @@ const LoginForm = () => {
   const [isForgotPassword, setIsForgotPassword] = useState(false);
   const navigate = useNavigate();
 
+  // Kiểm tra email hợp lệ
   const isValidEmail = (email) => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
 
+  // Xử lý đăng nhập
   const handleLogin = async () => {
-    
     if (!email) {
       setErrorMessage('Vui lòng nhập email!');
       return;
@@ -29,24 +30,23 @@ const LoginForm = () => {
       setErrorMessage('Vui lòng nhập mật khẩu!');
       return;
     }
-    if (pass.length < 9) {
+    if (pass.length < 8) {
       setErrorMessage('Mật khẩu phải có ít nhất 8 ký tự!');
       return;
     }
 
     try {
-      await login({ email, password: pass });  
+      await login({ email, password: pass });
       setErrorMessage('');
       navigate('/dashboard');
     } catch (error) {
       setErrorMessage(error.message || 'Đăng nhập thất bại!');
-    };
-
+    }
   };
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
-      handleLogin();
+      isForgotPassword ? handleForgotPassword() : handleLogin();
     }
   };
 
@@ -65,7 +65,7 @@ const LoginForm = () => {
       alert(`Yêu cầu đặt lại mật khẩu đã được gửi tới: ${email}`);
       setIsForgotPassword(false);
     } catch (error) {
-      setErrorMessage(error.message);
+      setErrorMessage(error.message || 'Yêu cầu thất bại!');
     }
   };
 
@@ -81,7 +81,10 @@ const LoginForm = () => {
               pass={pass}
               setPass={setPass}
               errorMessage={errorMessage}
-              onForgotPassword={() => setIsForgotPassword(true)}
+              onForgotPassword={() => {
+                setErrorMessage(''); 
+                setIsForgotPassword(true);
+              }}
               onKeyDown={handleKeyDown}
             />
             <Button onClick={handleLogin} className="bg-blue-600 text-white hover:bg-blue-700">
@@ -94,7 +97,11 @@ const LoginForm = () => {
             setEmail={setEmail}
             errorMessage={errorMessage}
             onSubmit={handleForgotPassword}
-            onBack={() => setIsForgotPassword(false)}
+            onBack={() => {
+              setErrorMessage(''); // Xóa lỗi khi quay lại đăng nhập
+              setIsForgotPassword(false);
+            }}
+            onKeyDown={handleKeyDown}
           />
         )}
       </form>

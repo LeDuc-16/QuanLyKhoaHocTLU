@@ -3,7 +3,7 @@ import InputField from '../atoms/InputFiled';
 import Button from '../atoms/Button';
 import Link from '../atoms/Link';
 
-const ForgetPasswordForm = ({ email, setEmail, errorMessage, onSubmit, onBack }) => {
+const ForgetPasswordForm = ({ email, setEmail, errorMessage, onSubmit, onBack, onKeyDown }) => {
   return (
     <>
       <InputField
@@ -13,6 +13,7 @@ const ForgetPasswordForm = ({ email, setEmail, errorMessage, onSubmit, onBack })
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Nhập email"
         id="forget-email"
+        onKeyDown={onKeyDown}
       />
       {errorMessage && (
         <div className="text-xs md:text-sm text-red-500 italic mb-4">{errorMessage}</div>
