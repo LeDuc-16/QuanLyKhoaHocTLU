@@ -16,6 +16,7 @@ const LoginForm = () => {
   const isValidEmail = (email) => /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
 
   const handleLogin = async () => {
+    
     if (!email) {
       setErrorMessage('Vui lòng nhập email!');
       return;
@@ -34,11 +35,18 @@ const LoginForm = () => {
     }
 
     try {
-      await login({ email, password: pass }); // Điều chỉnh theo API 
+      await login({ email, password: pass });  
       setErrorMessage('');
       navigate('/dashboard');
     } catch (error) {
       setErrorMessage(error.message || 'Đăng nhập thất bại!');
+    };
+
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      handleLogin();
     }
   };
 
@@ -74,6 +82,7 @@ const LoginForm = () => {
               setPass={setPass}
               errorMessage={errorMessage}
               onForgotPassword={() => setIsForgotPassword(true)}
+              onKeyDown={handleKeyDown}
             />
             <Button onClick={handleLogin} className="bg-blue-600 text-white hover:bg-blue-700">
               Đăng nhập
