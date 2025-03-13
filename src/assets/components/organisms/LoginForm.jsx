@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LoginHeader from '../molecules/LoginHeader';
-import LoginFormInputs from '/Users/leduc/QLKHTLU/src/assets/components/molecules/LoginFormInput.jsx';
-import ForgetPasswordForm from '/Users/leduc/QLKHTLU/src/assets/components/molecules/ForgetPasswordForm.jsx';
-import Button from '/Users/leduc/QLKHTLU/src/assets/components/atoms/Button.jsx';
+import LoginFormInputs from '../molecules/LoginFormInput.jsx';
+import ForgetPasswordForm from '../molecules/ForgetPasswordForm.jsx';
+import Button from '../atoms/Button.jsx';
 import { login, forgotPassword } from '../../api/authApi';
 
 const LoginForm = () => {
@@ -28,8 +28,8 @@ const LoginForm = () => {
       setErrorMessage('Vui lòng nhập mật khẩu!');
       return;
     }
-    if (pass.length < 6) {
-      setErrorMessage('Mật khẩu phải có ít nhất 6 ký tự!');
+    if (pass.length < 9) {
+      setErrorMessage('Mật khẩu phải có ít nhất 8 ký tự!');
       return;
     }
 

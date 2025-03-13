@@ -1,9 +1,12 @@
 import React from 'react'
 
-const Admin = () => {
+const Dashboard = () => {
   return (
-    <div>Day la file cua trung</div>
+    <>
+      <h1>DAY LA FILE CUA NGO MINH TRUNG</h1>
+    </>
+
   )
 }
 
-export default Admin
+export default Dashboard
